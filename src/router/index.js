@@ -1,18 +1,18 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Storage from '../views/Storage.vue'
-import StorageAdd from '../views/StorageAdd.vue'
+import Index from '../views/Index.vue'
+import ProductAdd from '../views/ProductAdd.vue'
 import ProductDelete from '../views/ProductDelete.vue'
 
 const routes = [
   {
     path: '/',
-    name: 'storage',
-    component: Storage
+    name: 'index',
+    component: Index
   },
   {
-    path: '/store/:id',
-    name: 'StorageAdd',
-    component: StorageAdd
+    path: '/index/:id',
+    name: 'ProductAdd',
+    component: ProductAdd
   },
     {
     path: '/ProductDelete/:id',
@@ -20,9 +20,9 @@ const routes = [
     component: ProductDelete
   },
   {
-    path: '/store/',
-    name: 'storageAdd',
-    component: StorageAdd
+    path: '/index/',
+    name: 'productAdd',
+    component: ProductAdd
   },
 ]
 
