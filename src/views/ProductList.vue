@@ -19,7 +19,8 @@
       <header class="navPadding">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
           <div class="container-fluid">
-            <a class="navbar-brand" href="#">Navbar</a>
+            <a class="navbar-brand" href="#"><img class="round" src="../assets/myLogo_2.png"/>
+            </a>
             <button
               class="navbar-toggler"
               type="button"
@@ -38,9 +39,24 @@
                     >Home</a
                   >
                 </li>
+                <!-- navBar -->
                 <li class="nav-item">
-                  <a class="nav-link" href="#">Link</a>
+                  <a class="nav-link" href="/AdminPage#bookingDiv">Booking</a>
                 </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/AdminPage#brandDiv">Brands</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/AdminPage#categoryDiv">Categories</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/AdminPage#discountDiv">Discounts</a>
+                </li>
+                 <li class="nav-item">
+                  <a class="nav-link" href="/AdminPage#statusDiv">Statuses</a>
+                </li>
+                
+                <!--  -->
                 <li class="nav-item dropdown">
                   <a
                     class="nav-link dropdown-toggle"
@@ -63,15 +79,7 @@
                     </li>
                   </ul>
                 </li>
-                <li class="nav-item">
-                  <a
-                    class="nav-link disabled"
-                    href="#"
-                    tabindex="-1"
-                    aria-disabled="true"
-                    >Disabled</a
-                  >
-                </li>
+                
               </ul>
               <form class="d-flex">
                 <input
@@ -127,7 +135,7 @@
                   aria-describedby="inputGroup-sizing-default"
                   placeholder="Price From"
                 />
-                <div></div>
+
                 <input
                   style="width: 45%"
                   type="number"
@@ -138,13 +146,76 @@
                   aria-describedby="inputGroup-sizing-default"
                   placeholder="Price To"
                 />
-                <img style="width: 45%" src="../assets/logo.png" class="card-img-top" alt="..." />
-                <input type="radio">
-                <label>TEST</label>
-               <img style="width: 45%" src="../assets/logo.png" class="card-img-top" alt="..." />
-                <img style="width: 45%" src="../assets/logo.png" class="card-img-top" alt="..." />
-                 <img style="width: 45%" src="../assets/logo.png" class="card-img-top" alt="..." />
-                  <img style="width: 45%" src="../assets/logo.png" class="card-img-top" alt="..." />
+              </div>
+
+              <div class="checkboxWrapper">
+                <ul class="chBoxUl">
+                  <li>
+                    <input type="checkbox" id="myCheckbox1" />
+                    <label for="myCheckbox1"
+                      ><img class="brandImg" src="../assets/b_1.png"
+                    /></label>
+                  </li>
+                  <li>
+                    <input type="checkbox" id="myCheckbox2" />
+                    <label for="myCheckbox2"
+                      ><img class="brandImg" src="../assets/b_2.jpg"
+                    /></label>
+                  </li>
+                  <li>
+                    <input type="checkbox" id="myCheckbox3" />
+                    <label for="myCheckbox3"
+                      ><img class="brandImg" src="../assets/b_3.jpg"
+                    /></label>
+                  </li>
+
+                  <li>
+                    <input type="checkbox" id="myCheckbox4" />
+                    <label for="myCheckbox4"
+                      ><img class="brandImg" src="../assets/b_5.webp"
+                    /></label>
+                  </li>
+                  <li>
+                    <input type="checkbox" id="myCheckbox5" />
+                    <label for="myCheckbox5"
+                      ><img class="brandImg" src="../assets/b_6.png"
+                    /></label>
+                  </li>
+                  <li>
+                    <input type="checkbox" id="myCheckbox6" />
+                    <label for="myCheckbox6"
+                      ><img class="brandImg" src="../assets/b_7.jpg"
+                    /></label>
+                  </li>
+
+                  <li>
+                    <input type="checkbox" id="myCheckbox7" />
+                    <label for="myCheckbox7"
+                      ><img
+                        class="brandImg"
+                        src="http://townandcountryremovals.com/wp-content/uploads/2013/10/firefox-logo-200x200.png"
+                    /></label>
+                  </li>
+                  <li>
+                    <input type="checkbox" id="myCheckbox8" />
+                    <label for="myCheckbox8"
+                      ><img
+                        class="brandImg"
+                        src="http://tech21info.com/admin/wp-content/uploads/2013/03/chrome-logo-200x200.png"
+                    /></label>
+                  </li>
+                  <li>
+                    <input type="checkbox" id="myCheckbox9" />
+                    <label for="myCheckbox9"
+                      ><img
+                        class="brandImg"
+                        src="http://www.thebusinessofsports.com/wp-content/uploads/2010/10/facebook-icon-200x200.png"
+                    /></label>
+                  </li>
+                </ul>
+              </div>
+              <div>
+                <button class="btn btn-primary" type="submit" style="width: 150px;">Search</button>
               </div>
             </div>
           </div>
@@ -232,36 +303,36 @@ export default {
     };
   },
   methods: {
-    updateCountProduct(id, symbol, count, name, index) {
-      console.log(this.products[index].count);
-      if (count >= 0) {
-        if (count <= 5) {
-          axios.post("http://127.0.0.1:7000/api/product/", {
-            notification: {
-              params: { name: name },
-              sendMethodID_id: 2,
-              templateID_id: 6,
-            },
-          });
-        }
-        axios
-          .post("http://127.0.0.1:8000/api/updateCount/" + id, {
-            Product: { count: 1, operation: symbol },
-          })
-          .then((response) => {
-            this.redirectTo("/");
-          });
-      }
-    },
-    redirectTo(url) {
-      window.location = url;
-    },
+    // updateCountProduct(id, symbol, count, name, index) {
+    //   console.log(this.products[index].count);
+    //   if (count >= 0) {
+    //     if (count <= 5) {
+    //       axios.post("http://127.0.0.1:7000/api/product/", {
+    //         notification: {
+    //           params: { name: name },
+    //           sendMethodID_id: 2,
+    //           templateID_id: 6,
+    //         },
+    //       });
+    //     }
+    //     axios
+    //       .post("http://127.0.0.1:8000/api/updateCount/" + id, {
+    //         Product: { count: 1, operation: symbol },
+    //       })
+    //       .then((response) => {
+    //         this.redirectTo("/");
+    //       });
+    //   }
+    // },
+    // redirectTo(url) {
+    //   window.location = url;
+    // },
   },
-  mounted() {
-    axios
-      .get("http://127.0.0.1:8000/api/index/")
-      .then((response) => (this.products = response.data.Product));
-  },
+  // mounted() {
+  //   axios
+  //     .get("http://127.0.0.1:8000/api/index/")
+  //     .then((response) => (this.products = response.data.Product));
+  // },
 };
 </script>
 
@@ -269,3 +340,4 @@ export default {
 <style>
 @import "../assets/styles.scss";
 </style>
+

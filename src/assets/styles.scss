@@ -1,6 +1,9 @@
-body{
-    background-color: red;
-}
+.round {
+  border-radius: 100px; /* Радиус скругления */
+  border: 3px solid green; /* Параметры рамки */
+  box-shadow: 0 0 7px #666; /* Параметры тени */
+  width:30px;
+ }
 
 .margin10{
     margin-top: 10px;
@@ -66,4 +69,82 @@ body{
   
   * {
     font-size: 9px;
+  }
+
+  // checkbox
+  .checkboxWrapper{
+    display: flex;
+    
+    padding: 20px;
+  }
+
+  .brandImg{
+    width: 50px;
+    height: 50px;
+  }
+
+  .chBoxUl {
+    list-style-type: none;
+    padding-left: 0;
+    justify-content: space-between;
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  li {
+    display: inline-block;
+    margin: 10px 0;
+  }
+  
+  input[type="checkbox"][id^="myCheckbox"] {
+    display: none;
+  }
+  
+  label {
+    border: 1px solid #fff;
+    
+    display: block;
+    position: relative;
+    cursor: pointer;
+  }
+  
+  label:before {
+    background-color: white;
+    color: white;
+    content: " ";
+    display: block;
+    border-radius: 50%;
+    border: 1px solid grey;
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    width: 25px;
+    height: 25px;
+    text-align: center;
+    line-height: 28px;
+    transition-duration: 0.4s;
+    transform: scale(0);
+  }
+  
+  label img {
+    height: 100px;
+    width: 100px;
+    transition-duration: 0.2s;
+    transform-origin: 50% 50%;
+  }
+  
+  :checked + label {
+    border-color: #ddd;
+  }
+  
+  :checked + label:before {
+    content: "✓";
+    background-color: grey;
+    transform: scale(1);
+  }
+  
+  :checked + label img {
+    transform: scale(0.9);
+    /* box-shadow: 0 0 5px #333; */
+    z-index: -1;
   }

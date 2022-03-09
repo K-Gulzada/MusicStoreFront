@@ -1,16 +1,17 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Index from '../views/Index.vue'
+import ProductList from '../views/ProductList.vue'
 import ProductAdd from '../views/ProductAdd.vue'
 import ProductDelete from '../views/ProductDelete.vue'
+import AdminPage from '../views/AdminPage.vue'
 
 const routes = [
   {
     path: '/',
-    name: 'index',
-    component: Index
+    name: 'productList',
+    component: ProductList
   },
   {
-    path: '/index/:id',
+    path: '/productList/:id',
     name: 'ProductAdd',
     component: ProductAdd
   },
@@ -20,9 +21,14 @@ const routes = [
     component: ProductDelete
   },
   {
-    path: '/index/',
+    path: '/productList/',
     name: 'productAdd',
     component: ProductAdd
+  },
+  {
+    path: '/adminPage',
+    name: 'adminPage',
+    component: AdminPage
   },
 ]
 
