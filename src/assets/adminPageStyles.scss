@@ -1,6 +1,6 @@
 
 .visible_div{
-    background-color: #ffc97f;
+    background-color: #f5e5d0;
     display: flex;
     justify-content: space-between;
     padding: 10px;
@@ -9,6 +9,11 @@
 
 .myBtn{
     border-radius: 100%;
+}
+
+.myBtn:hover{
+    background-color: aqua;
+    border-radius: 50%;
 }
 
 .hiddenDiv{

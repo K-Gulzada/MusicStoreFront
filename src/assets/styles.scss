@@ -5,6 +5,12 @@
   width:30px;
  }
 
+ .cardDiv{
+   display: flex;
+   flex-direction: column;
+   justify-content: space-between;
+ }
+
 .margin10{
     margin-top: 10px;
 }

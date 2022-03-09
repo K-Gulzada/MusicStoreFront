@@ -38,7 +38,6 @@
                     >Home</a
                   >
                 </li>
-              
               </ul>
               <form class="d-flex">
                 <input
@@ -59,24 +58,56 @@
       <section id="section_brands" class="container_100">
         <div id="bookingDiv" class="visible_div">
           <h3>Booking</h3>
-          <button id="makeVisible" class="myBtn btn-success">+</button>          
+          <button @click="showDiv(1)" id="makeVisible" class="myBtn btn-success">
+            +
+          </button>
         </div>
-        <div class="hiddenDiv">
-          <h2>Hello World!</h2>
+        <div id="hiddenDiv_1" v-if="isShowing == 1">
+          <h1>Booking</h1>
+          <button class="btn btn-primary">Add New</button>
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">№</th>
+                <th scope="col">Product ID</th>
+                <th scope="col">User ID</th>
+                <th scope="col">Status ID</th>
+                <th scope="col">Start date</th>
+                <th scope="col">End date</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="booking in bookings" :key="booking.id">
+                <th scope="row">{{ booking.id }}</th>
+
+                <td>{{ booking.product_id }}</td>
+                <td>{{ booking.user_id }}</td>
+                <td>{{ booking.status_id }}</td>
+                <td>{{ booking.start_date }}</td>
+                <td>{{ booking.end_date }}</td>
+                <td><button class="btn btn-danger">Delete</button></td>
+                <td><button class="btn btn-warning">Update</button></td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-        <div id="brandDiv" class="b_div">
+
+        <div id="brandDiv" class="visible_div">
           <h3>Brands</h3>
-          <button class="myBtn btn-success">+</button>
+          <button @click="showDiv(2)" class="myBtn btn-success">+</button>
         </div>
-        <div id="categoryDiv" class="b_div">
+        <div id="hiddenDiv_2" v-if="isShowing == 2">
+          <h2>Second Hello World!</h2>
+        </div>
+        <div id="categoryDiv" class="visible_div">
           <h3>Categories</h3>
           <button class="myBtn btn-success">+</button>
         </div>
-        <div id="discountDiv" class="b_div">
+        <div id="discountDiv" class="visible_div">
           <h3>Discounts</h3>
           <button class="myBtn btn-success">+</button>
         </div>
-        <div id="statusDiv" class="b_div">
+        <div id="statusDiv" class="visible_div">
           <h3>Statuses</h3>
           <button class="myBtn btn-success">+</button>
         </div>
@@ -87,18 +118,29 @@
 
 <script>
 import axios from "axios";
-import '../assets/adminPage.js'
+// import handle from "../assets/adminPage.js";
 export default {
   data: function () {
     return {
-      products: {},
+      isShowing: null,
+      bookings: {},
     };
   },
+
   methods: {
-  
+    showDiv: function (id) {
+      if(this.isShowing == id){
+        this.isShowing = null
+      } else {
+        this.isShowing = id
+      }      
+    },
   },
+  // mounted() {},
   mounted() {
-   
+    axios
+      .get("http://127.0.0.1:8000/api/booking/")
+      .then((response) => (this.bookings = response.data));
   },
 };
 </script>
@@ -107,5 +149,4 @@ export default {
 <style>
 @import "../assets/adminPageStyles.scss";
 </style>
-
 

@@ -221,17 +221,28 @@
           </div>
 
           <div class="rightListSide">
-            <div class="card" style="width: 18rem">
+             <tr v-for="booking in bookings" :key="booking.id">
+                <th scope="row">{{ booking.id }}</th>
+
+                <td>{{ booking.product_id }}</td>
+                <td>{{ booking.user_id }}</td>
+                <td>{{ booking.status_id }}</td>
+                <td>{{ booking.start_date }}</td>
+                <td>{{ booking.end_date }}</td>
+                <td><button class="btn btn-danger">Delete</button></td>
+                <td><button class="btn btn-warning">Update</button></td>
+              </tr>
+
+            <div class="card" style="width: 18rem" v-for="product in products" :key="product.id">
               <img src="../assets/logo.png" class="card-img-top" alt="..." />
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">
-                  Some quick example text to build on the card title and make up
-                  the bulk of the card's content.
-                </p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
+              <div class="card-body cardDiv">
+                <h5 class="card-title">{{ product.product_name }}</h5>
+                <p class="card-text"> {{product.description}} </p>
+                <p class="card-text" style="font-size:12px; font-weight:bold;"> {{product.price}} </p>
+                <a href="#" class="btn btn-primary">Book</a>
               </div>
             </div>
+
             <div class="card" style="width: 18rem">
               <img src="../assets/logo.png" class="card-img-top" alt="..." />
               <div class="card-body">
@@ -333,6 +344,11 @@ export default {
   //     .get("http://127.0.0.1:8000/api/index/")
   //     .then((response) => (this.products = response.data.Product));
   // },
+    mounted() {
+    axios
+      .get("http://127.0.0.1:8000/api/product/")
+      .then((response) => (this.products = response.data));
+  },
 };
 </script>
 
