@@ -19,7 +19,8 @@
       <header class="navPadding">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
           <div class="container-fluid">
-            <a class="navbar-brand" href="#"><img class="round" src="../assets/myLogo_2.png"/>
+            <a class="navbar-brand" href="#"
+              ><img class="round" src="../assets/myLogo_2.png" />
             </a>
             <button
               class="navbar-toggler"
@@ -47,15 +48,19 @@
                   <a class="nav-link" href="/AdminPage#brandDiv">Brands</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="/AdminPage#categoryDiv">Categories</a>
+                  <a class="nav-link" href="/AdminPage#categoryDiv"
+                    >Categories</a
+                  >
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="/AdminPage#discountDiv">Discounts</a>
+                  <a class="nav-link" href="/AdminPage#discountDiv"
+                    >Discounts</a
+                  >
                 </li>
-                 <li class="nav-item">
+                <li class="nav-item">
                   <a class="nav-link" href="/AdminPage#statusDiv">Statuses</a>
                 </li>
-                
+
                 <!--  -->
                 <li class="nav-item dropdown">
                   <a
@@ -79,7 +84,6 @@
                     </li>
                   </ul>
                 </li>
-                
               </ul>
               <form class="d-flex">
                 <input
@@ -150,152 +154,48 @@
 
               <div class="checkboxWrapper">
                 <ul class="chBoxUl">
-                  <li>
-                    <input type="checkbox" id="myCheckbox1" />
-                    <label for="myCheckbox1"
-                      ><img class="brandImg" src="../assets/b_1.png"
-                    /></label>
-                  </li>
-                  <li>
-                    <input type="checkbox" id="myCheckbox2" />
-                    <label for="myCheckbox2"
-                      ><img class="brandImg" src="../assets/b_2.jpg"
-                    /></label>
-                  </li>
-                  <li>
-                    <input type="checkbox" id="myCheckbox3" />
-                    <label for="myCheckbox3"
-                      ><img class="brandImg" src="../assets/b_3.jpg"
-                    /></label>
-                  </li>
-
-                  <li>
-                    <input type="checkbox" id="myCheckbox4" />
-                    <label for="myCheckbox4"
-                      ><img class="brandImg" src="../assets/b_5.webp"
-                    /></label>
-                  </li>
-                  <li>
-                    <input type="checkbox" id="myCheckbox5" />
-                    <label for="myCheckbox5"
-                      ><img class="brandImg" src="../assets/b_6.png"
-                    /></label>
-                  </li>
-                  <li>
-                    <input type="checkbox" id="myCheckbox6" />
-                    <label for="myCheckbox6"
-                      ><img class="brandImg" src="../assets/b_7.jpg"
-                    /></label>
-                  </li>
-
-                  <li>
-                    <input type="checkbox" id="myCheckbox7" />
-                    <label for="myCheckbox7"
-                      ><img
-                        class="brandImg"
-                        src="http://townandcountryremovals.com/wp-content/uploads/2013/10/firefox-logo-200x200.png"
-                    /></label>
-                  </li>
-                  <li>
-                    <input type="checkbox" id="myCheckbox8" />
-                    <label for="myCheckbox8"
-                      ><img
-                        class="brandImg"
-                        src="http://tech21info.com/admin/wp-content/uploads/2013/03/chrome-logo-200x200.png"
-                    /></label>
-                  </li>
-                  <li>
-                    <input type="checkbox" id="myCheckbox9" />
-                    <label for="myCheckbox9"
-                      ><img
-                        class="brandImg"
-                        src="http://www.thebusinessofsports.com/wp-content/uploads/2010/10/facebook-icon-200x200.png"
-                    /></label>
+                  <li v-for="brand in brands" :key="brand.id">
+                    <input
+                      type="checkbox"
+                      v-bind:id="`myCheckbox${brand.id}`"
+                    />
+                    <label v-bind:for="`myCheckbox${brand.id}`">
+                      <img :src="brand.img_path" class="brandImg" />
+                    </label>
                   </li>
                 </ul>
               </div>
               <div>
-                <button class="btn btn-primary" type="submit" style="width: 150px;">Search</button>
+                <button
+                  class="btn btn-primary"
+                  type="submit"
+                  style="width: 150px"
+                >
+                  Search
+                </button>
               </div>
             </div>
           </div>
 
           <div class="rightListSide">
-             <tr v-for="booking in bookings" :key="booking.id">
-                <th scope="row">{{ booking.id }}</th>
+            <div
+              class="card"
+              style="width: 18rem"
+              v-for="product in products"
+              :key="product.id"
+            >
+              <img :src="product.img_path" class="card-img-top" alt="..." />
 
-                <td>{{ booking.product_id }}</td>
-                <td>{{ booking.user_id }}</td>
-                <td>{{ booking.status_id }}</td>
-                <td>{{ booking.start_date }}</td>
-                <td>{{ booking.end_date }}</td>
-                <td><button class="btn btn-danger">Delete</button></td>
-                <td><button class="btn btn-warning">Update</button></td>
-              </tr>
-
-            <div class="card" style="width: 18rem" v-for="product in products" :key="product.id">
-              <img src="../assets/logo.png" class="card-img-top" alt="..." />
               <div class="card-body cardDiv">
                 <h5 class="card-title">{{ product.product_name }}</h5>
-                <p class="card-text"> {{product.description}} </p>
-                <p class="card-text" style="font-size:12px; font-weight:bold;"> {{product.price}} </p>
-                <a href="#" class="btn btn-primary">Book</a>
-              </div>
-            </div>
-
-            <div class="card" style="width: 18rem">
-              <img src="../assets/logo.png" class="card-img-top" alt="..." />
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">
-                  Some quick example text to build on the card title and make up
-                  the bulk of the card's content.
+                <p class="card-text">{{ product.description }}</p>
+                <p class="card-text" style="font-size: 12px; font-weight: bold">
+                  {{ product.price }}
                 </p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-              </div>
-            </div>
-            <div class="card" style="width: 18rem">
-              <img src="../assets/logo.png" class="card-img-top" alt="..." />
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">
-                  Some quick example text to build on the card title and make up
-                  the bulk of the card's content.
-                </p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-              </div>
-            </div>
-            <div class="card" style="width: 18rem">
-              <img src="../assets/logo.png" class="card-img-top" alt="..." />
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">
-                  Some quick example text to build on the card title and make up
-                  the bulk of the card's content.
-                </p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-              </div>
-            </div>
-            <div class="card" style="width: 18rem">
-              <img src="../assets/logo.png" class="card-img-top" alt="..." />
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">
-                  Some quick example text to build on the card title and make up
-                  the bulk of the card's content.
-                </p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-              </div>
-            </div>
-            <div class="card" style="width: 18rem">
-              <img src="../assets/logo.png" class="card-img-top" alt="..." />
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">
-                  Some quick example text to build on the card title and make up
-                  the bulk of the card's content.
-                </p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
+                <div style="display:flex; justify-content: space-between;">
+                  <button style="width:60px" href="#" class="btn btn-primary">Book</button>
+                  <button style="width:60px" href="#" class="btn btn-success">Buy</button>
+                </div>
               </div>
             </div>
           </div>
@@ -311,6 +211,7 @@ export default {
   data: function () {
     return {
       products: {},
+      brands: {},
     };
   },
   methods: {
@@ -344,10 +245,13 @@ export default {
   //     .get("http://127.0.0.1:8000/api/index/")
   //     .then((response) => (this.products = response.data.Product));
   // },
-    mounted() {
+  mounted() {
     axios
       .get("http://127.0.0.1:8000/api/product/")
       .then((response) => (this.products = response.data));
+    axios
+      .get("http://127.0.0.1:8000/api/brand/")
+      .then((response) => (this.brands = response.data));
   },
 };
 </script>
