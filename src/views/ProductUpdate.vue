@@ -21,7 +21,7 @@
         <input class="form-control" placeholder="test" />
         <input class="form-control" placeholder="test" />
         <input class="form-control" placeholder="test" />
-        <button class="btn btn-success" style="width:100px" v-on:click="this.save()">
+        <button class="btn btn-success" style="width:100px" v-on:click="handle()">
           Save
         </button>
       </div>
@@ -31,6 +31,7 @@
 
 <script>
 import axios from "axios";
+import adminPage from '@/assets/adminPage.js'
 // import handle from "../assets/adminPage.js";
 export default {
   data: function () {
@@ -40,14 +41,17 @@ export default {
   },
 
   methods: {
-    getById: function (id){
-    // getById(id) {
-      console.log(id);
-      // if(id!=null){
-      // axios
-      //   .get("http://127.0.0.1:8000/api/product/"+id)
-      //   .then((response) => (this.product = response.data));
-      // }
+    // getById: function (id) {
+    // // getById(id) {
+    //   console.log(id);
+    //   // if(id!=null){
+    //   // axios
+    //   //   .get("http://127.0.0.1:8000/api/product/"+id)
+    //   //   .then((response) => (this.product = response.data));
+    //   // }
+    // },
+    handle(){
+      adminPage.getById(1)
     },
     save() {
       console.log("test");
