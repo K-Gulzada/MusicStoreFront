@@ -14,16 +14,6 @@
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
         crossorigin="anonymous"
       />
-      <!-- <script
-        src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
-        integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
-        crossorigin="anonymous"
-      ></script>
-      <script
-        src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
-        integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
-        crossorigin="anonymous"
-      ></script> -->
     </head>
     <body>
       <header class="navPadding">
@@ -52,11 +42,15 @@
                 </li>
                 <!-- navBar -->
                 <li class="nav-item">
-                  <a class="nav-link" href="/booking">Wish List</a>
+                  <a class="nav-link" href="/booking">Wish List</a> 
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" href="/brand">My Orders</a>
                 </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/category">Categories</a>
+                </li>
+
                 <li class="nav-item">
                   <a class="nav-link" href="/booking">Booking</a>
                 </li>
@@ -84,7 +78,6 @@
                 </li>
 
                 <!--  -->
-
                 <li class="nav-item dropdown">
                   <a
                     class="nav-link dropdown-toggle"
@@ -216,13 +209,6 @@
                   {{ product.price }}
                 </p>
                 <div style="display: flex; justify-content: space-between">
-                  <img
-                    v-if="image"
-                    :key="image.id"
-                    @click="addFavorite(product.id)"
-                    style="width: 20px; height: 20px"
-                    :src="image.src"
-                  />
                   <button style="width: 60px" href="#" class="btn btn-primary">
                     Book
                   </button>
@@ -244,59 +230,12 @@ import axios from "axios";
 export default {
   data: function () {
     return {
-      products: {},
+      favorites: {},
       brands: {},
-      index: 0,
-      image: null,
-      images: [
-        {
-          id: 1,
-          src: "/img/heart_icon.b9566ecf.png",
-        },
-        {
-          id: 2,
-          src: "/img/red_heart_icon.74914c32.png",
-        },
-      ],
     };
   },
   methods: {
-    addFavorite(id) {
-      this.image = this.images[this.index];
-      this.index = (this.index + 1) % this.images.length;
-      console.log(this.index);
-      if (this.index == 0) {
-        // red
-        //post request to add new favorite
-      } else {
-        //delete request to delete from favorite table
-      }
-    },
     
-    // updateCountProduct(id, symbol, count, name, index) {
-    //   console.log(this.products[index].count);
-    //   if (count >= 0) {
-    //     if (count <= 5) {
-    //       axios.post("http://127.0.0.1:7000/api/product/", {
-    //         notification: {
-    //           params: { name: name },
-    //           sendMethodID_id: 2,
-    //           templateID_id: 6,
-    //         },
-    //       });
-    //     }
-    //     axios
-    //       .post("http://127.0.0.1:8000/api/updateCount/" + id, {
-    //         Product: { count: 1, operation: symbol },
-    //       })
-    //       .then((response) => {
-    //         this.redirectTo("/");
-    //       });
-    //   }
-    // },
-    // redirectTo(url) {
-    //   window.location = url;
-    // },
   },
   // mounted() {
   //   axios
@@ -304,10 +243,9 @@ export default {
   //     .then((response) => (this.products = response.data.Product));
   // },
   mounted() {
-    this.addFavorite();
     axios
-      .get("http://127.0.0.1:8000/api/product/")
-      .then((response) => (this.products = response.data));
+      .get("http://127.0.0.1:8000/api/favorite/")
+      .then((response) => (this.favorites = response.data));
     axios
       .get("http://127.0.0.1:8000/api/brand/")
       .then((response) => (this.brands = response.data));

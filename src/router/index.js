@@ -1,9 +1,13 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import ProductList from '../views/ProductList.vue'
-import ProductAdd from '../views/ProductAdd.vue'
-import ProductUpdate from '../views/ProductUpdate.vue'
-import ProductDelete from '../views/ProductDelete.vue'
-import AdminPage from '../views/AdminPage.vue'
+import BookingPage from '../views/BookingPage.vue'
+import BrandPage from '../views/BrandPage.vue'
+import CategoryPage from '../views/CategoryPage.vue'
+import DeliveryPage from '../views/DeliveryPage.vue'
+import DiscountPage from '../views/DiscountPage.vue'
+import FavoritePage from '../views/FavoritePage.vue'
+import ProductPage from '../views/ProductPage.vue'
+import StatusPage from '../views/StatusPage.vue'
 
 const routes = [
   {
@@ -11,30 +15,46 @@ const routes = [
     name: 'productList',
     component: ProductList
   },
+
   {
-    path: '/productList/:id',
-    name: 'ProductAdd',
-    component: ProductAdd
+    path: '/booking',
+    name: 'booking',
+    component: BookingPage
   },
   {
-    path: '/productUpdate',
-    name: 'ProductUpdate',
-    component: ProductUpdate
-  },
-    {
-    path: '/ProductDelete/:id',
-    name: 'ProductDelete',
-    component: ProductDelete
+    path: '/brand',
+    name: 'brand',
+    component: BrandPage
   },
   {
-    path: '/productList/',
-    name: 'productAdd',
-    component: ProductAdd
+    path: '/category',
+    name: 'category',
+    component: CategoryPage
   },
   {
-    path: '/adminPage',
-    name: 'adminPage',
-    component: AdminPage
+    path: '/delivery',
+    name: 'delivery',
+    component: DeliveryPage
+  },
+  {
+    path: '/discount',
+    name: 'discount',
+    component: DiscountPage
+  },
+  {
+    path: '/favorite',
+    name: 'favorite',
+    component: FavoritePage
+  },
+  {
+    path: '/product',
+    name: 'product',
+    component: ProductPage
+  },
+  {
+    path: '/status',
+    name: 'status',
+    component: StatusPage
   },
 ]
 
