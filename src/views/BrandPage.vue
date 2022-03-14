@@ -1,0 +1,182 @@
+
+<template>
+  <html>
+    <head>
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+        crossorigin="anonymous"
+      />
+      <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+        crossorigin="anonymous"
+      />
+    </head>
+    <body>
+      <header class="navPadding">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <div class="container-fluid">
+            <a class="navbar-brand" href="#">Navbar</a>
+            <button
+              class="navbar-toggler"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarSupportedContent"
+              aria-controls="navbarSupportedContent"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="/"
+                    >Home</a
+                  >
+                </li>
+              </ul>
+              <form class="d-flex">
+                <input
+                  class="form-control me-2"
+                  type="search"
+                  placeholder="Search"
+                  aria-label="Search"
+                />
+                <button class="btn btn-outline-success" type="submit">
+                  Search
+                </button>
+              </form>
+            </div>
+          </div>
+        </nav>
+      </header>
+
+      <section class="container_100">
+        <div id="brandDiv" class="visible_div">
+          <h3>Brands</h3>
+          <button @click="showDiv(2)" class="myBtn btn-success">+</button>
+        </div>
+        <div id="hiddenDiv_2" v-if="isShowing == 2">
+          <div
+            style="
+              display: flex;
+              align-items: center;
+              justify-content: flex-end;
+            "
+          >
+            <button class="btn btn-primary">Add New</button>
+          </div>
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">№</th>
+                <th scope="col">Image</th>
+                <th scope="col">Name</th>
+                <th scope="col">Description</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="brand in brands" :key="brand.id">
+                <th scope="row">{{ brand.id }}</th>
+
+                <td><img :src="brand.img_path" class="brandImg" /></td>
+                <td>{{ brand.name }}</td>
+                <td>{{ brand.description }}</td>
+                <td><button class="btn btn-danger">Delete</button></td>
+                <td>
+                  <button
+                    class="btn btn-warning"
+                    v-on:click="getById(brand.id)"
+                  >
+                    Update
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+        <section class="container_100">
+        <div class="updateDiv">
+          <div>
+            <div class="image-preview">
+              <img
+                style="height: 90px"
+                :src="'https://st.depositphotos.com/2000885/1902/i/600/depositphotos_19021343-stock-photo-red-heart.jpg'"
+                class="rounded mx-auto d-block"
+                alt="..."
+              />
+            </div>
+            <label style="margin-top: 20px" for="productfile"
+              >Upload file:</label
+            >
+            <input type="file" ref="file" id="productfile" name="productfile" />
+          </div>
+
+          <input
+            type="text"
+            name="name"
+            class="form-control"
+            placeholder="Brand Name"
+          />
+            <textarea
+            type="text"
+            name="description"
+            class="form-control"
+            placeholder="Description"
+          />
+       
+          <button
+            class="btn btn-success"
+            style="width: 100px"
+            v-on:click="this.save()"
+          >
+            Save
+          </button>
+        </div>
+      </section>
+    </body>
+  </html>
+</template>
+
+<script>
+import axios from "axios";
+// import handle from "../assets/adminPage.js";
+export default {
+  data: function () {
+    return {
+      isShowing: null,
+      brands: {},
+    };
+  },
+
+  methods: {
+    showDiv: function (id) {
+      if (this.isShowing == id) {
+        this.isShowing = null;
+      } else {
+        this.isShowing = id;
+      }
+    },
+  },
+  // mounted() {},
+  mounted() {
+    axios
+      .get("http://127.0.0.1:8000/api/brand/")
+      .then((response) => (this.brands = response.data));
+  },
+};
+</script>
+
+
+<style>
+@import "../assets/adminPageStyles.scss";
+</style>
+

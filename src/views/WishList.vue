@@ -192,9 +192,7 @@
               </div>
             </div>
           </div>
-         
-            <img v-if="image" :key="image.id" @click="addFavorite" style="width: 20px; height: 20px;" :src="image.src">
-        
+
           <div class="rightListSide">
             <div
               class="card"
@@ -211,7 +209,6 @@
                   {{ product.price }}
                 </p>
                 <div style="display: flex; justify-content: space-between">
-                 
                   <button style="width: 60px" href="#" class="btn btn-primary">
                     Book
                   </button>
@@ -233,63 +230,12 @@ import axios from "axios";
 export default {
   data: function () {
     return {
-      products: {},
+      favorites: {},
       brands: {},
-      index: 0,
-      image: null,
-      images: [{
-          id: 1,
-          src: "/img/heart_icon.b9566ecf.png",
-          
-        },
-        {
-          id: 2,
-          src: "/img/red_heart_icon.74914c32.png",
-      
-        }
-      ],
-     
     };
-    
   },
   methods: {
- 
-    addFavorite() {
-      this.image = this.images[this.index];
-      this.index = (this.index + 1) % this.images.length;
-      console.log(this.index);
-      if(this.index == 0) // red
-      {
-          //post request to add new favorite
-      }
-      else{
-        //delete request to delete from favorite table
-      }
-    }
-    // updateCountProduct(id, symbol, count, name, index) {
-    //   console.log(this.products[index].count);
-    //   if (count >= 0) {
-    //     if (count <= 5) {
-    //       axios.post("http://127.0.0.1:7000/api/product/", {
-    //         notification: {
-    //           params: { name: name },
-    //           sendMethodID_id: 2,
-    //           templateID_id: 6,
-    //         },
-    //       });
-    //     }
-    //     axios
-    //       .post("http://127.0.0.1:8000/api/updateCount/" + id, {
-    //         Product: { count: 1, operation: symbol },
-    //       })
-    //       .then((response) => {
-    //         this.redirectTo("/");
-    //       });
-    //   }
-    // },
-    // redirectTo(url) {
-    //   window.location = url;
-    // },
+    
   },
   // mounted() {
   //   axios
@@ -297,10 +243,9 @@ export default {
   //     .then((response) => (this.products = response.data.Product));
   // },
   mounted() {
-    this.addFavorite();
     axios
-      .get("http://127.0.0.1:8000/api/product/")
-      .then((response) => (this.products = response.data));
+      .get("http://127.0.0.1:8000/api/favorite/")
+      .then((response) => (this.favorites = response.data));
     axios
       .get("http://127.0.0.1:8000/api/brand/")
       .then((response) => (this.brands = response.data));
