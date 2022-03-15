@@ -223,7 +223,12 @@
                     style="width: 20px; height: 20px"
                     :src="image.src"
                   />
-                  <button style="width: 60px" href="#" class="btn btn-primary">
+                  <button
+                    style="width: 60px"
+                    href="#"
+                    class="btn btn-primary"
+                    @click="bookProduct(product.id)"
+                  >
                     Book
                   </button>
                   <button style="width: 60px" href="#" class="btn btn-success">
@@ -261,18 +266,40 @@ export default {
     };
   },
   methods: {
-    addFavorite(id) {
+    addFavorite(product_id) {
       this.image = this.images[this.index];
       this.index = (this.index + 1) % this.images.length;
       console.log(this.index);
       if (this.index == 0) {
+        axios.post("http://127.0.0.1:8000/api/favorite/", {
+          product_id: product_id,
+          user_id: "TMP User ID",
+        });
         // red
         //post request to add new favorite
       } else {
         //delete request to delete from favorite table
+        console.log(product_id);
+        favorite_id = 0;
+
+        favorite_id = axios.get(
+          "http://127.0.0.1:8000/api/favorite/getId/byParams",
+          {
+            product_id: product_id,
+            user_id: "TMP User ID",
+          }
+        );
+
+        axios.delete("http://127.0.0.1:8000/api/product/" + favorite_id);
       }
     },
-    
+    bookProduct(id) {
+      console.log(id);
+      axios.post("http://127.0.0.1:8000/api/booking/", {
+        product_id: id,
+      });
+    },
+
     // updateCountProduct(id, symbol, count, name, index) {
     //   console.log(this.products[index].count);
     //   if (count >= 0) {

@@ -97,7 +97,7 @@
             </tbody>
           </table>
         </div>
-      </section>
+      </section>    
 
       <section class="container_100">
         <div class="updateDiv">
