@@ -8,6 +8,7 @@ import DiscountPage from '../views/DiscountPage.vue'
 import FavoritePage from '../views/FavoritePage.vue'
 import ProductPage from '../views/ProductPage.vue'
 import StatusPage from '../views/StatusPage.vue'
+import WishList from '../views/WishList.vue'
 
 const routes = [
   {
@@ -55,6 +56,11 @@ const routes = [
     path: '/status',
     name: 'status',
     component: StatusPage
+  },
+  {
+    path: '/wishList',
+    name: 'wishList',
+    component: WishList
   },
 ]
 

@@ -230,25 +230,24 @@ import axios from "axios";
 export default {
   data: function () {
     return {
-      favorites: {},
+      products: {},
       brands: {},
     };
   },
   methods: {
     
   },
-  // mounted() {
-  //   axios
-  //     .get("http://127.0.0.1:8000/api/index/")
-  //     .then((response) => (this.products = response.data.Product));
-  // },
+ 
   mounted() {
+        
     axios
-      .get("http://127.0.0.1:8000/api/favorite/")
-      .then((response) => (this.favorites = response.data));
-    axios
-      .get("http://127.0.0.1:8000/api/brand/")
+      .get("http://127.0.0.1:8000/api/product/favProd/TMP User ID")
+      .then((response) => (this.products = response.data));
+
+      axios
+      .get("http://127.0.0.1:8000/api/brand")
       .then((response) => (this.brands = response.data));
+   
   },
 };
 </script>

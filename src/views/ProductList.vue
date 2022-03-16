@@ -52,7 +52,7 @@
                 </li>
                 <!-- navBar -->
                 <li class="nav-item">
-                  <a class="nav-link" href="/booking">Wish List</a>
+                  <a class="nav-link" href="/wishList">Wish List</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" href="/brand">My Orders</a>
@@ -129,20 +129,13 @@
           <div class="leftFilterSide">
             <div class="filterWrapper">
               <input
-                type="text"
+                type="nu,mber"
                 class="form-control margin10"
                 aria-label="Sizing example input"
                 aria-describedby="inputGroup-sizing-default"
-                placeholder="Category Name"
+                placeholder="Category ID"
+                ref="category_id"
               />
-
-              <!-- <input
-                type="text"
-                class="form-control margin10"
-                aria-label="Sizing example input"
-                aria-describedby="inputGroup-sizing-default"
-                placeholder="Brand Name"
-              /> -->
 
               <input
                 type="text"
@@ -150,6 +143,7 @@
                 aria-label="Sizing example input"
                 aria-describedby="inputGroup-sizing-default"
                 placeholder="Product Name"
+                ref="product_name"
               />
               <div class="priceDivWrapper margin10">
                 <input
@@ -193,6 +187,7 @@
                   class="btn btn-primary"
                   type="submit"
                   style="width: 80%"
+                  @click="search()"
                 >
                   Search
                 </button>
@@ -224,6 +219,7 @@
                     :src="image.src"
                   />
                   <button
+                    :disabled="isActive == product.id"
                     style="width: 60px"
                     href="#"
                     class="btn btn-primary"
@@ -250,9 +246,15 @@ export default {
   data: function () {
     return {
       products: {},
+      filteredProducts: {},
+      isActive: 0,
       brands: {},
+      favorites: {},
       index: 0,
+      favorite_id: 0,
       image: null,
+      prod_name_for_search: "",
+      category_id_for_search: "",
       images: [
         {
           id: 1,
@@ -266,10 +268,21 @@ export default {
     };
   },
   methods: {
-    addFavorite(product_id) {
+    favoriteIcon() {
       this.image = this.images[this.index];
       this.index = (this.index + 1) % this.images.length;
-      console.log(this.index);
+    },
+    addFavorite(product_id) {
+     
+      // this.image = this.images[this.index];
+      // this.index = (this.index + 1) % this.images.length;
+
+      this.favorite_id = axios.get("http://127.0.0.1:8000/api/favorite/", {
+        product_id: product_id, // 1
+        user_id: "314", // 314
+      });
+
+      //  console.log(this.index);
       if (this.index == 0) {
         axios.post("http://127.0.0.1:8000/api/favorite/", {
           product_id: product_id,
@@ -280,64 +293,68 @@ export default {
       } else {
         //delete request to delete from favorite table
         console.log(product_id);
-        favorite_id = 0;
 
-        favorite_id = axios.get(
+        this.favorite_id = axios.get(
           "http://127.0.0.1:8000/api/favorite/getId/byParams",
           {
-            product_id: product_id,
-            user_id: "TMP User ID",
+            product_id: product_id, // 1
+            user_id: "314", // 314
           }
         );
+        console.log(this.favorite_id);
 
-        axios.delete("http://127.0.0.1:8000/api/product/" + favorite_id);
+        // axios.delete("http://127.0.0.1:8000/api/product/" + favorite_id);
       }
     },
     bookProduct(id) {
       console.log(id);
+      this.isActive = id;
       axios.post("http://127.0.0.1:8000/api/booking/", {
         product_id: id,
       });
     },
+    search() {
+      console.log(this.$refs.product_name.value);
+      console.log(this.$refs.category_id.value);
+      if (this.$refs.product_name.value.length == 0) {
+        this.products = axios.get("http://127.0.0.1:8000/api/product/", {
+          category_id: this.$refs.category_id.value,
+        });
+      }
 
-    // updateCountProduct(id, symbol, count, name, index) {
-    //   console.log(this.products[index].count);
-    //   if (count >= 0) {
-    //     if (count <= 5) {
-    //       axios.post("http://127.0.0.1:7000/api/product/", {
-    //         notification: {
-    //           params: { name: name },
-    //           sendMethodID_id: 2,
-    //           templateID_id: 6,
-    //         },
-    //       });
-    //     }
-    //     axios
-    //       .post("http://127.0.0.1:8000/api/updateCount/" + id, {
-    //         Product: { count: 1, operation: symbol },
-    //       })
-    //       .then((response) => {
-    //         this.redirectTo("/");
-    //       });
-    //   }
-    // },
-    // redirectTo(url) {
-    //   window.location = url;
-    // },
+      if (this.$refs.category_id.value.length == 0) {
+        this.products = axios.get("http://127.0.0.1:8000/api/product/", {
+          product_name: this.$refs.product_name.value,
+        });
+      }
+      if (
+        this.$refs.category_id.value.length != 0 &&
+        this.$refs.product_name.value.length != 0
+      ) {
+        this.products = axios.get("http://127.0.0.1:8000/api/product/", {
+          product_name: this.$refs.product_name.value,
+          category_id: this.$refs.category_id.value,
+        });
+      }
+      //location.reload();
+      console.log(this.products);
+    },
+
+    
   },
-  // mounted() {
-  //   axios
-  //     .get("http://127.0.0.1:8000/api/index/")
-  //     .then((response) => (this.products = response.data.Product));
-  // },
+ 
   mounted() {
-    this.addFavorite();
+    this.favoriteIcon();
     axios
       .get("http://127.0.0.1:8000/api/product/")
       .then((response) => (this.products = response.data));
+
     axios
       .get("http://127.0.0.1:8000/api/brand/")
       .then((response) => (this.brands = response.data));
+    axios
+      .get("http://127.0.0.1:8000/api/favorite/")
+      .then((response) => (this.favorites = response.data));
   },
 };
 </script>
